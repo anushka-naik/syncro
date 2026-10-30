@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" width="1040" height="560" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <style>
+      .grp { fill: #f6f6f6; stroke: #888; stroke-width: 1; }
+      .box { fill: #fff; stroke: #333; stroke-width: 1; }
+      .bound { fill: none; stroke: #333; stroke-width: 1.2; stroke-dasharray: 6 4; }
+      .ln { stroke: #333; stroke-width: 1.1; fill: none; }
+      .h { font-size: 13px; font-weight: 600; fill: #111; text-anchor: middle; }
+      .m { font-family: Menlo, Consolas, monospace; font-size: 12px; font-weight: 600; fill: #111; text-anchor: middle; }
+      .s { font-size: 11px; fill: #555; text-anchor: middle; }
+      .lbl { font-size: 11px; font-weight: 600; fill: #333; letter-spacing: 0.06em; }
+      .note { font-size: 10.5px; fill: #555; font-style: italic; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="1040" height="560" fill="#fff"/>
+
+  <!-- Inputs -->
+  <rect class="grp" x="20" y="50" width="150" height="150"/>
+  <text class="lbl" x="30" y="68">INPUTS</text>
+  <rect class="box" x="30" y="78" width="130" height="32"/><text class="h" x="95" y="98">Video clips</text>
+  <rect class="box" x="30" y="116" width="130" height="32"/><text class="h" x="95" y="136">Voiceover audio</text>
+  <rect class="box" x="30" y="154" width="130" height="32"/><text class="h" x="95" y="174">Script (optional)</text>
+
+  <!-- Outputs -->
+  <rect class="grp" x="20" y="268" width="150" height="160"/>
+  <text class="lbl" x="30" y="286">OUTPUTS</text>
+  <rect class="box" x="30" y="296" width="130" height="34"/><text class="h" x="95" y="317">Video · MP4/WebM</text>
+  <rect class="box" x="30" y="338" width="130" height="34"/><text class="h" x="95" y="359">Captions · SRT/VTT</text>
+  <rect class="box" x="30" y="380" width="130" height="34"/><text class="h" x="95" y="401">Thumbnails · JPEG</text>
+
+  <!-- Browser boundary -->
+  <rect class="bound" x="190" y="30" width="560" height="500"/>
+  <text class="lbl" x="202" y="50">BROWSER CLIENT · React 19 + Vite (no backend)</text>
+
+  <!-- UI row -->
+  <rect class="box" x="210" y="62" width="166" height="56"/>
+  <text class="h" x="293" y="84">Ingest &amp; onboarding</text>
+  <text class="s" x="293" y="102">drop files · choose voiceover</text>
+
+  <rect class="box" x="387" y="62" width="166" height="56"/>
+  <text class="h" x="470" y="84">Timeline editor</text>
+  <text class="s" x="470" y="102">order · trim · swap · preview</text>
+
+  <rect class="box" x="564" y="62" width="166" height="56"/>
+  <text class="h" x="647" y="84">Post-processing</text>
+  <text class="s" x="647" y="102">captions · thumbnails · export</text>
+
+  <!-- UI <-> state -->
+  <line class="ln" x1="293" y1="120" x2="293" y2="161" marker-start="url(#a)" marker-end="url(#a)"/>
+  <line class="ln" x1="470" y1="120" x2="470" y2="161" marker-start="url(#a)" marker-end="url(#a)"/>
+  <line class="ln" x1="647" y1="120" x2="647" y2="161" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <!-- State -->
+  <rect class="box" x="210" y="163" width="520" height="46"/>
+  <text class="h" x="470" y="182">Session state <tspan class="s">(App.tsx, in memory)</tspan></text>
+  <text class="s" x="470" y="199">VideoClip[] · Voiceover (transcript, timed segments) · CaptionStyle · object URLs</text>
+
+  <!-- State -> panels -->
+  <line class="ln" x1="335" y1="211" x2="335" y2="243" marker-end="url(#a)"/>
+  <line class="ln" x1="605" y1="211" x2="605" y2="243" marker-end="url(#a)"/>
+
+  <!-- Local media pipeline -->
+  <rect class="grp" x="210" y="245" width="250" height="265"/>
+  <text class="lbl" x="222" y="265">LOCAL MEDIA PIPELINE</text>
+
+  <rect class="box" x="222" y="278" width="226" height="60"/>
+  <text class="h" x="335" y="298">Renderer</text>
+  <text class="s" x="335" y="315">Canvas 2D + Web Audio</text>
+  <text class="s" x="335" y="329">→ MediaRecorder, real time</text>
+
+  <rect class="box" x="222" y="348" width="226" height="60"/>
+  <text class="h" x="335" y="368">Frame capture</text>
+  <text class="s" x="335" y="385">seek → canvas → JPEG</text>
+  <text class="s" x="335" y="399">with quote overlay</text>
+
+  <rect class="box" x="222" y="418" width="226" height="60"/>
+  <text class="m" x="335" y="438">captionUtils.ts</text>
+  <text class="s" x="335" y="455">timed segments → SRT / VTT</text>
+
+  <!-- AI services -->
+  <rect class="grp" x="480" y="245" width="250" height="265"/>
+  <text class="lbl" x="492" y="265">AI SERVICES</text>
+
+  <rect class="box" x="492" y="278" width="226" height="60"/>
+  <text class="m" x="605" y="298">gemini.ts</text>
+  <text class="s" x="605" y="315">file upload · transcription</text>
+  <text class="s" x="605" y="329">clip description · alignment · TTS</text>
+
+  <rect class="box" x="492" y="348" width="226" height="60"/>
+  <text class="m" x="605" y="368">postProcessing.ts</text>
+  <text class="s" x="605" y="385">summary · chapters · hashtags</text>
+  <text class="s" x="605" y="399">thumbnail key moments</text>
+
+  <rect class="box" x="492" y="418" width="226" height="60"/>
+  <text class="m" x="605" y="438">apiKey.ts</text>
+  <text class="s" x="605" y="455">user's key in localStorage</text>
+
+  <!-- Inputs -> ingest, pipeline -> outputs -->
+  <line class="ln" x1="170" y1="100" x2="208" y2="100" marker-end="url(#a)"/>
+  <line class="ln" x1="210" y1="348" x2="172" y2="348" marker-end="url(#a)"/>
+
+  <!-- Gemini -->
+  <rect class="grp" x="780" y="230" width="240" height="290"/>
+  <text class="lbl" x="792" y="250">GOOGLE GEMINI API</text>
+  <text class="note" x="900" y="220">HTTPS via @google/genai</text>
+
+  <rect class="box" x="795" y="262" width="210" height="56"/>
+  <text class="h" x="900" y="281">Files API</text>
+  <text class="s" x="900" y="297">media upload; URI cached</text>
+  <text class="s" x="900" y="311">per file for reuse</text>
+
+  <rect class="box" x="795" y="326" width="210" height="56"/>
+  <text class="m" x="900" y="345">gemini-2.5-flash-lite</text>
+  <text class="s" x="900" y="361">transcription · clip description</text>
+  <text class="s" x="900" y="375">alignment · narration script</text>
+
+  <rect class="box" x="795" y="390" width="210" height="56"/>
+  <text class="m" x="900" y="409" font-size="11">gemini-2.5-flash-preview-tts</text>
+  <text class="s" x="900" y="425">speech synthesis</text>
+  <text class="s" x="900" y="439">(PCM → WAV in browser)</text>
+
+  <rect class="box" x="795" y="454" width="210" height="56"/>
+  <text class="m" x="900" y="473">gemini-3-flash-preview</text>
+  <text class="s" x="900" y="489">description · chapters</text>
+  <text class="s" x="900" y="503">key moments</text>
+
+  <!-- AI services <-> Gemini -->
+  <line class="ln" x1="720" y1="308" x2="778" y2="308" marker-start="url(#a)" marker-end="url(#a)"/>
+  <line class="ln" x1="720" y1="378" x2="778" y2="378" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <!-- Legend -->
+  <line class="ln" x1="790" y1="60" x2="830" y2="60" marker-end="url(#a)"/>
+  <text x="840" y="64" font-size="11" fill="#333">data flow</text>
+  <line x1="790" y1="82" x2="830" y2="82" stroke="#333" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="840" y="86" font-size="11" fill="#333">process boundary</text>
+</svg>
